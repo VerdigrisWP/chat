@@ -1,7 +1,7 @@
 #對話紀錄格式轉換
 
-def open_file(): #定義函數「開啟檔案」
-	with open('input.txt', 'r', encoding='utf-8') as f:
+def open_file(filename): #定義函數「開啟檔案」
+	with open(filename, 'r', encoding='utf-8') as f:
 		chat_log = []
 		for line in f:
 			line = line.encode('utf-8').decode('utf-8-sig') #解決出現「\ufeff」問題
@@ -22,6 +22,11 @@ def write_file(chat_log): #定義函數「寫入檔案」
 		for line in chat_log:
 			f.write(line + '\n')
 
-chat_log = open_file()
-chat_log = reformate(chat_log)
-write_file(chat_log)
+import os
+filename = input('請輸入欲開啟的檔案名稱：')
+if os.path.isfile(filename):
+	chat_log = open_file(filename)
+	chat_log = reformate(chat_log)
+	write_file(chat_log)
+else:
+	print('找不到檔案，請重新輸入')
