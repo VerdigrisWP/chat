@@ -1,5 +1,7 @@
 #對話紀錄格式轉換
 
+import os
+
 def open_file(filename): #定義函數「開啟檔案」
 	with open(filename, 'r', encoding='utf-8') as f:
 		chat_log = []
@@ -22,11 +24,13 @@ def write_file(chat_log): #定義函數「寫入檔案」
 		for line in chat_log:
 			f.write(line + '\n')
 
-import os
-filename = input('請輸入欲開啟的檔案名稱：')
-if os.path.isfile(filename):
-	chat_log = open_file(filename)
-	chat_log = reformate(chat_log)
-	write_file(chat_log)
-else:
-	print('找不到檔案，請重新輸入')
+def main():
+	filename = input('請輸入欲開啟的檔案名稱：')
+	if os.path.isfile(filename):
+		chat_log = open_file(filename)
+		chat_log = reformate(chat_log)
+		write_file(chat_log)
+	else:
+		print('找不到檔案，請重新輸入')
+
+main()
