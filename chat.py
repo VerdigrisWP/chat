@@ -3,21 +3,22 @@
 import os
 
 def open_file(filename): #定義函數「開啟檔案」
-	with open(filename, 'r', encoding='utf-8') as f:
+	with open(filename, 'r', encoding='utf-8-sig') as f: #解決出現「\ufeff」問題
 		chat_log = []
 		for line in f:
-			line = line.encode('utf-8').decode('utf-8-sig') #解決出現「\ufeff」問題
+			#line = line.encode('utf-8').decode('utf-8-sig') #解決出現「\ufeff」問題
 			chat_log.append(line.strip())
 	return chat_log
 
 def reformate(chat_log): #定義函數「重整格式」
-	chat_relog = []
+	new_log = []
+	name = ''
 	for line in chat_log:
 		if line == 'Allen' or line == 'Tom':
-			name = line + ':'
+			name = line
 		else:
-			chat_relog.append(name + line)
-	return chat_relog
+			new_log.append(name + ': ' + line)
+	return new_log
 
 def write_file(chat_log): #定義函數「寫入檔案」
 	with open ('output.txt', 'w', encoding='utf-8') as f:
